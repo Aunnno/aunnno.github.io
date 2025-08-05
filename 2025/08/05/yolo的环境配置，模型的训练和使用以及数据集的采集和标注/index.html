@@ -1,0 +1,1209 @@
+
+  <!DOCTYPE html>
+  <html lang="zh-CN"  
+    
+      data-theme-mode="auto"
+    
+  >
+  <head>
+  
+  <meta charset="utf-8">
+  
+
+  
+
+  
+
+  <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_0khxww3tj3q9';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://example.com';</script>
+  
+  <title>
+    yolo的环境配置，模型的训练和使用以及数据集的采集和标注 |
+    
+    Aunnno的小窝
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+    <link rel="preload" as="style" href="https://fontsapi.zeoseven.com/509/main/result.css" onload="this.rel&#x3D;&#39;stylesheet&#39;" crossorigin>
+  
+  
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic&display=swap" media="print" onload="this.media&#x3D;&#39;all&#39;">
+  
+  
+    <link rel="preload" href="//at.alicdn.com/t/c/font_4552607_0khxww3tj3q9.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  
+  
+    
+<link rel="stylesheet" href="/css/loader.css">
+
+  
+  
+    <meta name="description" content="前言相关仓库：https:&#x2F;&#x2F;github.com&#x2F;Aunnno&#x2F;RMYC-recognition这是我为rmyc的视觉识别提供的解决方案，其中比较困难的就是yolo环境的安装以及使用，以及我在数据集的标注上跳了一些坑(苦笑)。今天就分享给大家鼠鼠的艰辛历程    yolo环境配置yolo技术的简要介绍 YOLO（You Only Look Once）是一种流行的物体检测和图像分割模型，由华盛顿大">
+<meta property="og:type" content="article">
+<meta property="og:title" content="yolo的环境配置，模型的训练和使用以及数据集的采集和标注">
+<meta property="og:url" content="https://example.com/2025/08/05/yolo%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8/index.html">
+<meta property="og:site_name" content="Aunnno的小窝">
+<meta property="og:description" content="前言相关仓库：https:&#x2F;&#x2F;github.com&#x2F;Aunnno&#x2F;RMYC-recognition这是我为rmyc的视觉识别提供的解决方案，其中比较困难的就是yolo环境的安装以及使用，以及我在数据集的标注上跳了一些坑(苦笑)。今天就分享给大家鼠鼠的艰辛历程    yolo环境配置yolo技术的简要介绍 YOLO（You Only Look Once）是一种流行的物体检测和图像分割模型，由华盛顿大">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://example.com/images/screenshot_1_2025-08-04_224250.png">
+<meta property="og:image" content="https://example.com/images/labelstudio_1.png">
+<meta property="og:image" content="https://example.com/images/labelstudio_3.png">
+<meta property="og:image" content="https://example.com/images/labelstudio_4.png">
+<meta property="og:image" content="https://example.com/images/labelstudio_5.png">
+<meta property="og:image" content="https://example.com/images/labelstudaio_6.png">
+<meta property="og:image" content="https://example.com/images/labelstudio_2.png">
+<meta property="article:published_time" content="2025-08-05T04:00:09.000Z">
+<meta property="article:modified_time" content="2025-08-05T04:00:59.004Z">
+<meta property="article:author" content="Aunnno">
+<meta property="article:tag" content="yolo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://example.com/images/screenshot_1_2025-08-04_224250.png">
+  
+  
+    <link rel="alternate" href="/atom.xml" title="Aunnno的小窝" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/images/favicon2.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  <link rel="preload" as="style" onload="this.onload&#x3D;null;this.rel&#x3D;&#39;stylesheet&#39;" href="https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.css" integrity="sha384-IfxC36XL&#x2F;toUyJ939C73PcgMuRzAZuIzZxE38drsmO5p6jD7ei+Zx&#x2F;1oA&#x2F;0l8ysE" crossorigin="anonymous">
+  
+  
+    
+      
+<link rel="stylesheet" href="https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.css" integrity="sha384-vltfZtesCdl6NYVcFVcjEaIi5RpNvZe9t7fXvq8twVtcoy+Ub9QgnxUYJmwOhYCK" crossorigin="anonymous">
+
+    
+  
+  
+  
+    
+<script src="https://npm.webcache.cn/pace-js@1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous"></script>
+
+  
+  
+    
+<link rel="stylesheet" href="https://npm.webcache.cn/@reimujs/aos@0.1.2/dist/aos.css" integrity="sha384-GMRP93c6Hkz9JVKGAuRR3nTS7M07RwPgTFenXiosjq2VbVgvdDNcz1g6Mkj8AONa" crossorigin="anonymous">
+
+  
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    
+    
+  <div id='loader'>
+    <div class="loading-left-bg loading-bg"></div>
+    <div class="loading-right-bg loading-bg"></div>
+    <div class="spinner-box">
+      <div class="loading-taichi rotate">
+        
+          <svg width="150" height="150" viewBox="0 0 1024 1024" class="icon" version="1.1" xmlns="https://www.w3.org/2000/svg" shape-rendering="geometricPrecision">
+            <path d="M303.5 432A80 80 0 0 1 291.5 592A80 80 0 0 1 303.5 432z" fill="var(--red-1, #ff5252)" />
+            <path d="M512 65A447 447 0 0 1 512 959L512 929A417 417 0 0 0 512 95A417 417 0 0 0 512 929L512 959A447 447 0 0 1 512 65z 
+           M512 95A417 417 0 0 1 929 512A208.5 208.5 0 0 1 720.5 720.5L720.5 592A80 80 0 0 0 720.5 432A80 80 0 0 0 720.5 592L720.5 720.5A208.5 208.5 0 0 1 512 512A208.5 208.5 0 0 0 303.5 303.5A208.5 208.5 0 0 0 95 512A417 417 0 0 1 512 95z" fill="var(--red-1, #ff5252)" />
+          </svg>
+        
+      </div>
+      
+      
+        
+      
+      <div class="loading-word">少女祈祷中...</div>
+    </div>
+  </div>
+  </div>
+  <script>
+    var time = null;
+    var startLoading = () => {
+      time = Date.now();
+      document.getElementById('loader').classList.remove("loading");
+    }
+    var endLoading = () => {
+      if (!time) {
+        document.body.style.overflow = 'auto';
+        document.getElementById('loader').classList.add("loading");
+      } else {
+        if (Date.now() - time > 500) {
+          time = null;
+          document.body.style.overflow = 'auto';
+          document.getElementById('loader').classList.add("loading");
+        } else {
+          setTimeout(endLoading, 500 - (Date.now() - time));
+          time = null;
+        }
+      }
+    }
+    window.addEventListener('DOMContentLoaded', endLoading);
+    document.getElementById('loader').addEventListener('click', endLoading);
+  </script>
+
+<div id="copy-tooltip" style="pointer-events: none; opacity: 0; transition: all 0.2s ease; position: fixed;top: 50%;left: 50%;z-index: 999;transform: translate(-50%, -50%);color: white;background: rgba(0, 0, 0, 0.5);padding: 10px 15px;border-radius: 10px;">
+</div>
+<div id="heatmap-tooltip"></div>
+
+
+    <div id="container">
+      <div id="wrap">
+        <div id="header-nav">
+  <nav id="main-nav">
+    
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe61a;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/">首页</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe622;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/archives">归档</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe604;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/about">关于</a>
+        </span>
+      
+        <span class="main-nav-link-wrap">
+          <div class="main-nav-icon icon ">
+             
+              
+                &#xe608;
+              
+             
+          </div>
+          <a class="main-nav-link" href="/friend">友链</a>
+        </span>
+      
+    
+    <a id="main-nav-toggle" class="nav-icon"></a>
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS 订阅" target="_blank"></a>
+    
+    
+    
+  </nav>
+  
+</div>
+<header id="header">
+  
+    <picture></picture>
+    <img crossorigin="anonymous" fetchpriority="high" src="/covers/84074877_p0.jpg" alt="yolo的环境配置，模型的训练和使用以及数据集的采集和标注">
+  
+  <div id="header-outer">
+    <div id="header-title">
+      
+        
+        
+          <a href="/" id="logo">
+            <h1 data-aos="slide-up">yolo的环境配置，模型的训练和使用以及数据集的采集和标注</h1>
+          </a>
+        
+      
+      
+        
+        <h2 id="subtitle-wrap" data-aos="slide-down">
+          
+        </h2>
+      
+    </div>
+  </div>
+</header>
+
+        <div id="content"  class="sidebar-right" >
+          <aside id="sidebar">
+  
+  
+  
+  <div class="sidebar-wrapper wrap-sticky">
+    <div class="sidebar-wrap" data-aos="fade-up">
+      
+        
+          <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yolo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">yolo环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#yolo%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">yolo技术的简要介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D"><span class="toc-number">2.2.</span> <span class="toc-text">安装前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PyTorch%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">PyTorch的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ultralytics%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.4.</span> <span class="toc-text">ultralytics的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yolo%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.</span> <span class="toc-text">yolo模型的训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yolo%E7%9A%84%E4%B8%BB%E8%A6%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.5.1.</span> <span class="toc-text">yolo的主要模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.2.</span> <span class="toc-text">训练</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%B9%8B%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">2.5.2.1.</span> <span class="toc-text">训练之前的准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.2.2.</span> <span class="toc-text">开始训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%AE%8C%E6%88%90"><span class="toc-number">2.5.2.3.</span> <span class="toc-text">训练完成</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yolo%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">yolo模型的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.1.</span> <span class="toc-text">简单示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%AE%E4%BF%A1%E5%BA%A6%E9%98%88%E5%80%BC-conf-%E8%AE%BE%E7%BD%AE%E5%92%8CIoU%E9%98%88%E5%80%BC-iou-%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">置信度阈值(conf)设置和IoU阈值 (iou) - 非极大值抑制设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E4%BF%A1%E5%BA%A6%E9%98%88%E5%80%BC"><span class="toc-number">3.2.1.</span> <span class="toc-text">置信度阈值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IoU%E9%98%88%E5%80%BC-iou-%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6"><span class="toc-number">3.2.2.</span> <span class="toc-text">IoU阈值 (iou) - 非极大值抑制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">3.2.3.</span> <span class="toc-text">简单示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8"><span class="toc-number">4.</span> <span class="toc-text">数据集的采集和标注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%87%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">采集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E6%B3%A8"><span class="toc-number">4.2.</span> <span class="toc-text">标注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Label-Studio%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.1.</span> <span class="toc-text">Label Studio的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Label-Studio%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%A0%87%E6%B3%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用Label Studio进行数据集的标注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E6%A0%87%E6%B3%A8%E5%A5%BD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.2.3.</span> <span class="toc-text">导出标注好的数据集</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Aunnno" class="lazyload">
+  <div class="sidebar-author-name">Aunnno</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">1</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe61a;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe622;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe604;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe608;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+        
+      
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
+      
+    </div>
+  </div>
+
+  <div class="sidebar-widget">
+  
+  </div>
+  
+</aside>
+
+          <section id="main"><article id="post-yolo的环境配置，模型的训练和使用以及数据集的采集和标注" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-inner" data-aos="fade-up">
+    <div class="article-meta">
+      <div class="article-date">
+  <span class="article-date-link" data-aos="zoom-in">
+    <time datetime="2025-08-05T04:00:09.000Z" itemprop="datePublished">2025-08-05</time>
+    <time style="display: none;" id="post-update-time">2025-08-05</time>
+  </span>
+</div>
+
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/" data-aos="zoom-in">技术</a>
+  </div>
+
+
+    </div>
+    <div class="hr-line"></div>
+    
+
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>相关仓库：<a target="_blank" rel="noopener" href="https://github.com/Aunnno/RMYC-recognition">https://github.com/Aunnno/RMYC-recognition</a><br>这是我为rmyc的视觉识别提供的解决方案，其中比较困难的就是yolo环境的安装以及使用，以及我在数据集的标注上跳了一些坑(苦笑)。今天就分享给大家鼠鼠的艰辛历程  </p>
+<hr>
+<h1 id="yolo环境配置"><a href="#yolo环境配置" class="headerlink" title="yolo环境配置"></a>yolo环境配置</h1><h2 id="yolo技术的简要介绍"><a href="#yolo技术的简要介绍" class="headerlink" title="yolo技术的简要介绍"></a>yolo技术的简要介绍</h2><blockquote>
+<p>YOLO（You Only Look Once）是一种流行的物体检测和图像分割模型，由华盛顿大学的约瑟夫-雷德蒙（Joseph Redmon）和阿里-法哈迪（Ali Farhadi）开发。YOLO 于 2015 年推出，因其高速度和高精确度而广受欢迎。 ——摘自yolo官网  </p>
+</blockquote>
+<p>官网链接：<a target="_blank" rel="noopener" href="https://docs.ultralytics.com/">https://docs.ultralytics.com/</a><br>yolo，一个优秀的开源计算机视觉处理模型，实用性广，性能开支低，被广泛运用于各种领域  </p>
+<h2 id="安装前"><a href="#安装前" class="headerlink" title="安装前"></a>安装前</h2><p>在安装前，请保证你处于虚拟环境下（当然，你也可以直接使用Python的包管理工具，这里我演示不适用包管理工具的操作） </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 -m venv .venv #创建一个名为.venv的虚拟环境  </span><br><span class="line">  </span><br><span class="line">\.venv\Script\activate #Windows系统进入虚拟环境  </span><br><span class="line">source .venv/bin/activate #Linux系统进入虚拟环境  </span><br><span class="line">  </span><br><span class="line">deactivate #退出虚拟环境</span><br></pre></td></tr></table></figure>
+<h2 id="PyTorch的安装"><a href="#PyTorch的安装" class="headerlink" title="PyTorch的安装"></a>PyTorch的安装</h2><p>PyTorch是一个开源的Python机器学习库，yolo重要的依赖，<strong>每个设备都必须安装与其相适应的PyTorch</strong>，比如我的显卡是英伟达的3070Laptop，同时安装了CUDA环境，所以要下载与其对应的PyTorch<br>以我的机器为例，先查看CUDA的版本  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
+<p>可以看到结果<br><img src="/images/screenshot_1_2025-08-04_224250.png"><br>再选择对应的版本进行安装（相关命令可在PyTorch官网进行查询）  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121</span><br></pre></td></tr></table></figure>
+<p>每个系统对应安装命令可以在PyTorch的官网上进行查询，当然了，你也可以前往他们的github仓库上下载对应的库<br>PyTorch官网：<a target="_blank" rel="noopener" href="https://pytorch.org/">https://pytorch.org/</a>  </p>
+<h2 id="ultralytics的安装"><a href="#ultralytics的安装" class="headerlink" title="ultralytics的安装"></a>ultralytics的安装</h2><p>YOLO相关模块是被包含在ultralytics库下的（为什么这样呢，因为官方说想将ultralytics打造成机器学习的框架，yolo是它其中的一个模块），所以我们需要安装ultraltics库  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install ultralytics</span><br></pre></td></tr></table></figure>
+<p>相关依赖也会一起安装  </p>
+<h2 id="yolo模型的训练"><a href="#yolo模型的训练" class="headerlink" title="yolo模型的训练"></a>yolo模型的训练</h2><h3 id="yolo的主要模式"><a href="#yolo的主要模式" class="headerlink" title="yolo的主要模式"></a>yolo的主要模式</h3><p>yolo有很多中模式，我们这边只使用三种，如果想了解其他模式的话可以自行前往官网查询  </p>
+<ul>
+<li><code>train</code> 训练模式，在此模式下你可以训练自己的模型以供日后使用  </li>
+<li><code>val</code> 验证模式，用于评估你训练出来的模型的质量  </li>
+<li><code>predict</code> 推理模式，用于对输入的图像进行推理预测</li>
+</ul>
+<h3 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h3><h4 id="训练之前的准备"><a href="#训练之前的准备" class="headerlink" title="训练之前的准备"></a>训练之前的准备</h4><ul>
+<li>准备数据集<br>（如何自己制作数据集，请看后文）<br>数据集放在你自己的文件夹的根目录下，遵循coco格式<br>注意，训练集和验证集的数据数目是不一样的通常，推荐的划分比例为 8:1:1 或 7:2:1，即：<br>80% 或 70% 的数据用于训练（train）。<br>20% 或 30% 的数据用于验证（val）。<br>按照数据集的数据量，有不同的划分，这里不做赘述，如果想知道可以自行搜索。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./</span><br><span class="line">├── images/</span><br><span class="line">│   ├── train/</span><br><span class="line">│   └── val/</span><br><span class="line">├── labels/</span><br><span class="line">│   ├── train/</span><br><span class="line">│   └── val/</span><br><span class="line">└── data.yaml</span><br></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./</span><br><span class="line">├── train/</span><br><span class="line">│   ├── images/</span><br><span class="line">│   └── labels/</span><br><span class="line">├── val/</span><br><span class="line">│   ├── images/</span><br><span class="line">│   └── labels/</span><br><span class="line">└── data.yaml</span><br></pre></td></tr></table></figure>
+<ul>
+<li>准备data.yaml文件<br>很多初学者头疼的就是这个问题，不过搞明白后其实挺简单的<br>这个data.yaml文件相当于告诉yolo你数据集的基本信息，首先在你文件夹的根目录下新建data.yaml文件（文件名其实可以自己定义），然后在里面写下以下内容（我以我自己的一个数据集为例）：</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">path :</span> <span class="string">&quot;../yolo_train&quot;</span> <span class="comment">#根据你自己的根目录</span></span><br><span class="line"><span class="attr">train :</span> <span class="string">&quot;images/train&quot;</span> <span class="comment">#根据你自己的结构，如果你是上面第二种结构的话就填&quot;train/images&quot;</span></span><br><span class="line"><span class="attr">val :</span> <span class="string">&quot;images/val&quot;</span></span><br><span class="line"><span class="attr">nc :</span> <span class="number">1</span> <span class="comment">#根据你自己定义的标签数量</span></span><br><span class="line"><span class="attr">names :</span> [<span class="string">&#x27;name&#x27;</span>] <span class="comment">#根据你自己定义的标签名称</span></span><br></pre></td></tr></table></figure>
+<h4 id="开始训练"><a href="#开始训练" class="headerlink" title="开始训练"></a>开始训练</h4><p>有两种方法开始进行训练  </p>
+<ul>
+<li>使用python代码进行训练</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO</span><br><span class="line">model = YOLO(<span class="string">&quot;yolo11n.pt&quot;</span>)</span><br><span class="line">results = model.train(data=<span class="string">&quot;data.yaml&quot;</span>, epochs=<span class="number">100</span>, imgsz=<span class="number">640</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在命令行使用命令进行训练</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yolo detect train data=coco8.yaml model=yolo11n.pt epochs=100 imgsz=640</span><br></pre></td></tr></table></figure>
+<hr>
+<p>简单介绍一下相关参数：  </p>
+<ul>
+<li><code>model</code> 使用的预训练权重，决定了你训练出来的模型的结构  </li>
+<li><code>epochs</code> 训练轮数，一般在100~200之间  </li>
+<li><code>imgsz</code> 训练时图像的大小，无论你原始图像有多大都会被压成这么大<br>其他参数可自行前往官网查阅</li>
+</ul>
+<h4 id="训练完成"><a href="#训练完成" class="headerlink" title="训练完成"></a>训练完成</h4><p>训练完成后会在文件夹的根目录下生成<code>runs</code>文件夹，<code>runs\detect\train</code>下存储了训练结果，该目录下的<code>weights</code>文件夹中存储了训练出来的模型，其中<code>best.pt</code>是验证结果最优的，<code>last.pt</code>是最后一轮训练的模型  </p>
+<h1 id="yolo模型的使用"><a href="#yolo模型的使用" class="headerlink" title="yolo模型的使用"></a>yolo模型的使用</h1><h2 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO</span><br><span class="line">model = YOLO(<span class="string">&quot;yolo11n.pt&quot;</span>)  <span class="comment">#加载模型</span></span><br><span class="line">results = model([<span class="string">&quot;image1.jpg&quot;</span>, <span class="string">&quot;image2.jpg&quot;</span>])  <span class="comment">#对图片进行预测</span></span><br><span class="line"><span class="keyword">for</span> result <span class="keyword">in</span> results:</span><br><span class="line">    boxes = result.boxes        <span class="comment"># 边界框信息</span></span><br><span class="line">    masks = result.masks        <span class="comment"># 分割掩码（如果是实例分割任务）</span></span><br><span class="line">    keypoints = result.keypoints <span class="comment"># 关键点（如果是姿态估计任务）</span></span><br><span class="line">    probs = result.probs        <span class="comment"># 分类概率（如果是分类任务）</span></span><br><span class="line">    obb = result.obb           <span class="comment"># 有向边界框（OBB，Oriented Bounding Box）</span></span><br></pre></td></tr></table></figure>
+<p>由于我们只是用于目标检测，我们在这里只使用<code>boxes</code>即可</p>
+<ul>
+<li><code>results</code>中包含了多个<code>result</code>，有多少张图片就有多少个<code>result</code></li>
+<li><code>boxes</code>中包含了多个<code>box</code>，分别对应了你图片中检测到的目标<br>如果你想将目标框出来的话，可以用yolo自带的标框功能</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">results = model(frame)</span><br><span class="line">annotated_frame = results[<span class="number">0</span>].plot()</span><br></pre></td></tr></table></figure>
+<p>然后再使用opencv将其显示即可，显示出来的框上边会显示标签和置信度  </p>
+<h2 id="置信度阈值-conf-设置和IoU阈值-iou-非极大值抑制设置"><a href="#置信度阈值-conf-设置和IoU阈值-iou-非极大值抑制设置" class="headerlink" title="置信度阈值(conf)设置和IoU阈值 (iou) - 非极大值抑制设置"></a>置信度阈值(conf)设置和IoU阈值 (iou) - 非极大值抑制设置</h2><p>很多情况下，你识别出的结果里可能会包含错误识别的结果和重叠的框，这时我们就要设置置信度阈值和IoU阈值  </p>
+<h3 id="置信度阈值"><a href="#置信度阈值" class="headerlink" title="置信度阈值"></a>置信度阈值</h3><ul>
+<li>作用: 过滤掉模型不确定的检测结果</li>
+<li>范围: 0.0 - 1.0</li>
+<li>效果:<ul>
+<li>高值 (0.7+): 只保留高置信度检测，减少误检</li>
+<li>低值 (0.1-0.3): 保留更多检测，可能增加误检</li>
+</ul>
+</li>
+</ul>
+<h3 id="IoU阈值-iou-非极大值抑制"><a href="#IoU阈值-iou-非极大值抑制" class="headerlink" title="IoU阈值 (iou) - 非极大值抑制"></a>IoU阈值 (iou) - 非极大值抑制</h3><ul>
+<li>作用: 消除重叠的检测框</li>
+<li>范围: 0.0 - 1.0</li>
+<li>效果:</li>
+<li>高值 (0.7+): 只消除高度重叠的框</li>
+<li>低值 (0.3-): 积极消除重叠框</li>
+</ul>
+<h3 id="简单示例-1"><a href="#简单示例-1" class="headerlink" title="简单示例"></a>简单示例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO</span><br><span class="line"></span><br><span class="line">model = YOLO(<span class="string">&quot;yolo11n.pt&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 基础设置</span></span><br><span class="line">results = model(</span><br><span class="line">    <span class="string">&quot;image.jpg&quot;</span>,</span><br><span class="line">    conf=<span class="number">0.5</span>,    <span class="comment"># 置信度阈值50%</span></span><br><span class="line">    iou=<span class="number">0.45</span>     <span class="comment"># IoU阈值45%</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 严格设置(减少误检和重叠)</span></span><br><span class="line">results = model(</span><br><span class="line">    <span class="string">&quot;image.jpg&quot;</span>, </span><br><span class="line">    conf=<span class="number">0.7</span>,    <span class="comment"># 高置信度阈值</span></span><br><span class="line">    iou=<span class="number">0.3</span>      <span class="comment"># 低IoU阈值，积极消除重叠</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 宽松设置(检测更多目标)</span></span><br><span class="line">results = model(</span><br><span class="line">    <span class="string">&quot;image.jpg&quot;</span>,</span><br><span class="line">    conf=<span class="number">0.2</span>,    <span class="comment"># 低置信度阈值</span></span><br><span class="line">    iou=<span class="number">0.8</span>      <span class="comment"># 高IoU阈值，保留更多重叠框</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h1 id="数据集的采集和标注"><a href="#数据集的采集和标注" class="headerlink" title="数据集的采集和标注"></a>数据集的采集和标注</h1><h2 id="采集"><a href="#采集" class="headerlink" title="采集"></a>采集</h2><p>注意事项：</p>
+<ul>
+<li>保证数据的数量足够支撑起一个模型(至少100张，实际可能500张起步，规模再大一点的要数千张到万张)  </li>
+<li>保证多角度采集目标</li>
+<li>尽量在不同环境下采集数据，同一环境下不宜采集过多数据，不然可能过拟合</li>
+</ul>
+<h2 id="标注"><a href="#标注" class="headerlink" title="标注"></a>标注</h2><p>我们这里使用Label Studio进行标注  </p>
+<h3 id="Label-Studio的安装"><a href="#Label-Studio的安装" class="headerlink" title="Label Studio的安装"></a>Label Studio的安装</h3><p>注意，请在虚拟环境下进行安装和使用<br>安装命令  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install label-studio</span><br></pre></td></tr></table></figure>
+<p>启动命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">label-studio start</span><br></pre></td></tr></table></figure>
+<p>然后就可以在浏览器中进入label studio</p>
+<h3 id="使用Label-Studio进行数据集的标注"><a href="#使用Label-Studio进行数据集的标注" class="headerlink" title="使用Label Studio进行数据集的标注"></a>使用Label Studio进行数据集的标注</h3><p>上来你先要登录，如果没账号的话点击注册就行。<br>登陆后你可以看见如下界面：<br><img src="/images/labelstudio_1.png"><br>点击创建项目，进入项目设置：<br><img src="/images/labelstudio_3.png"><br>再上传你的采集到的原始数据：<br><img src="/images/labelstudio_4.png"><br>然后选择你要标注的类型：<br><img src="/images/labelstudio_5.png"><br>我这里选择第三种，创建好后进入项目，可看到如下界面：<br><img src="/images/labelstudaio_6.png"><br>点击<code>Label All Task</code>，即可开始标注。  </p>
+<h3 id="导出标注好的数据集"><a href="#导出标注好的数据集" class="headerlink" title="导出标注好的数据集"></a>导出标注好的数据集</h3><p>在项目界面点击<code>export</code>，选择你要导出的类型，我们使用的是yolo，但如果只选择<code>yolo</code>的话导出的txt文件的文件名会多出一串16进制数字导致和你的原始数据的文件名不一样，所以选择<code>yolo with images</code><br><img src="/images/labelstudio_2.png"><br>然后你的数据便可以成功导出了</p>
+<hr>
+<p>谢谢观看！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+      
+      
+        <a data-aos="zoom-in" href="/2025/08/05/yolo%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8/#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/2025/08/05/yolo%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8/" itemprop="commentCount"></span>
+          留言
+        </a>
+      
+      
+      
+      
+        <span data-aos="zoom-in" class="article-visitor-link">
+          <span class="waline-pageview-count" data-path="/2025/08/05/yolo%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8/">0</span>
+          <em class="post-meta-item-text">阅读量</em>
+        </span>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/yolo/" rel="tag">yolo</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="/covers/38183202_p0.jpg" data-sizes="auto" alt="纪念Aunnno小窝的建成" class="lazyload">
+      
+      <a href="/2025/08/02/%E7%BA%AA%E5%BF%B5Aunnno%E5%B0%8F%E7%AA%9D%E7%9A%84%E5%BB%BA%E6%88%90/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          纪念Aunnno小窝的建成
+        
+      </h3>
+    </div>
+    
+  </nav>
+
+
+</article>
+
+
+
+
+
+
+
+
+
+  <section id="comments" data-aos="fade-up">
+    <div class="comment-header">
+      
+      
+        
+      
+      <h2 class="comment-title">说些什么吧！</h2>
+      <div class="comment-selector">
+        <div class="comment-selector-wrap">
+            
+            <div class="selector-item" data-selector="waline">
+              <span>waline</span>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+    <div class="comment-content">
+      
+        <div class="comment waline-comment" data-aos="fade-up"
+          id="waline-comment">
+        </div>
+      
+    </div>
+  </section>
+
+
+</section>
+        </div>
+        <footer id="footer">
+  <div style="width: 100%; overflow: hidden">
+    <div class="footer-line"></div>
+  </div>
+  <div id="footer-info">
+    
+    <div>
+      <span class="icon-copyright"></span>
+      
+      
+      
+        2020-2025
+      
+      <span class="footer-info-sep rotate"></span>
+      Aunnno
+    </div>
+    
+      <div>
+        基于&nbsp;<a href="https://hexo.io/" rel="noopener external nofollow noreferrer" target="_blank">Hexo</a>&nbsp;
+        Theme.<a href="https://github.com/D-Sketon/hexo-theme-reimu" rel="noopener external nofollow noreferrer" target="_blank">Reimu</a>
+      </div>
+    
+    
+      <div>
+        <span class="icon-brush"></span>
+        2.4k
+        &nbsp;|&nbsp;
+        <span class="icon-coffee"></span>
+        00:09
+      </div>
+    
+    
+    
+    
+      <div>
+        <span class="icon-eye"></span>
+        <span id="busuanzi_container_site_pv">总访问量&nbsp;<span id="busuanzi_value_site_pv"></span></span>
+        &nbsp;|&nbsp;
+        <span class="icon-user"></span>
+        <span id="busuanzi_container_site_uv">总访客量&nbsp;<span id="busuanzi_value_site_uv"></span></span>
+      </div>
+    
+  </div>
+</footer>
+
+        
+          <div class="sidebar-top">
+            <div class="sidebar-top-taichi rotate"></div>
+            <div class="arrow-up"></div>
+          </div>
+        
+        <div id="mask" class="hide"></div>
+      </div>
+      <nav id="mobile-nav">
+  <div class="sidebar-wrap">
+    
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yolo%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">yolo环境配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#yolo%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.1.</span> <span class="toc-text">yolo技术的简要介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D"><span class="toc-number">2.2.</span> <span class="toc-text">安装前</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PyTorch%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.3.</span> <span class="toc-text">PyTorch的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ultralytics%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">2.4.</span> <span class="toc-text">ultralytics的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#yolo%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.</span> <span class="toc-text">yolo模型的训练</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yolo%E7%9A%84%E4%B8%BB%E8%A6%81%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.5.1.</span> <span class="toc-text">yolo的主要模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.2.</span> <span class="toc-text">训练</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E4%B9%8B%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87"><span class="toc-number">2.5.2.1.</span> <span class="toc-text">训练之前的准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E8%AE%AD%E7%BB%83"><span class="toc-number">2.5.2.2.</span> <span class="toc-text">开始训练</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%AD%E7%BB%83%E5%AE%8C%E6%88%90"><span class="toc-number">2.5.2.3.</span> <span class="toc-text">训练完成</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#yolo%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">yolo模型的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B"><span class="toc-number">3.1.</span> <span class="toc-text">简单示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%AE%E4%BF%A1%E5%BA%A6%E9%98%88%E5%80%BC-conf-%E8%AE%BE%E7%BD%AE%E5%92%8CIoU%E9%98%88%E5%80%BC-iou-%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">置信度阈值(conf)设置和IoU阈值 (iou) - 非极大值抑制设置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E4%BF%A1%E5%BA%A6%E9%98%88%E5%80%BC"><span class="toc-number">3.2.1.</span> <span class="toc-text">置信度阈值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IoU%E9%98%88%E5%80%BC-iou-%E9%9D%9E%E6%9E%81%E5%A4%A7%E5%80%BC%E6%8A%91%E5%88%B6"><span class="toc-number">3.2.2.</span> <span class="toc-text">IoU阈值 (iou) - 非极大值抑制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%A4%BA%E4%BE%8B-1"><span class="toc-number">3.2.3.</span> <span class="toc-text">简单示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8"><span class="toc-number">4.</span> <span class="toc-text">数据集的采集和标注</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%87%E9%9B%86"><span class="toc-number">4.1.</span> <span class="toc-text">采集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A0%87%E6%B3%A8"><span class="toc-number">4.2.</span> <span class="toc-text">标注</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Label-Studio%E7%9A%84%E5%AE%89%E8%A3%85"><span class="toc-number">4.2.1.</span> <span class="toc-text">Label Studio的安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Label-Studio%E8%BF%9B%E8%A1%8C%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E6%A0%87%E6%B3%A8"><span class="toc-number">4.2.2.</span> <span class="toc-text">使用Label Studio进行数据集的标注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BC%E5%87%BA%E6%A0%87%E6%B3%A8%E5%A5%BD%E7%9A%84%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-number">4.2.3.</span> <span class="toc-text">导出标注好的数据集</span></a></li></ol></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
+  <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Aunnno" class="lazyload">
+  <div class="sidebar-author-name">Aunnno</div>
+  <div class="sidebar-description"></div>
+</div>
+<div class="sidebar-state">
+  <div class="sidebar-state-article">
+    <div>文章</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-category">
+    <div>分类</div>
+    <div class="sidebar-state-number">2</div>
+  </div>
+  <div class="sidebar-state-tag">
+    <div>标签</div>
+    <div class="sidebar-state-number">1</div>
+  </div>
+</div>
+<div class="sidebar-social">
+  
+</div>
+<div class="sidebar-menu">
+  
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/" aria-label="首页"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe61a;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">首页</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/archives" aria-label="归档"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe622;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">归档</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/about" aria-label="关于"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe604;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">关于</div>
+      </div>
+    
+      <div class="sidebar-menu-link-wrap">
+        <a class="sidebar-menu-link-dummy" href="/friend" aria-label="友链"></a>
+        <div class="sidebar-menu-icon icon ">
+          
+            
+              &#xe608;
+            
+          
+        </div>
+        <div class="sidebar-menu-link">友链</div>
+      </div>
+    
+  
+</div>
+</div>
+      
+    
+  </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
+  
+</nav>
+
+    </div>
+    
+    
+    
+    
+<script src="https://npm.webcache.cn/lazysizes@5.3.2/lazysizes.min.js" integrity="sha384-3gT&#x2F;vsepWkfz&#x2F;ff7PpWNUeMzeWoH3cDhm&#x2F;A8jM7ouoAK0&#x2F;fP&#x2F;9bcHHR5kHq2nf+e" crossorigin="anonymous"></script>
+
+
+<script src="https://npm.webcache.cn/clipboard@2.0.11/dist/clipboard.min.js" integrity="sha384-J08i8An&#x2F;QeARD9ExYpvphB8BsyOj3Gh2TSh1aLINKO3L0cMSH2dN3E22zFoXEi0Q" crossorigin="anonymous"></script>
+
+
+
+  
+<script src="https://npm.webcache.cn/material-theme@1.0.0/dist/material-theme.umd.js" integrity="sha384-vLev0II0HKFaxkcm+&#x2F;7kX5IGwVFBASkGchU311wmU&#x2F;veIj2bB0UcBkQbW6yw2asK" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+  
+<script src="/js/aos.js"></script>
+
+  <script>
+    var aosInit = () => {
+      AOS.init({
+        duration: 1000,
+        easing: "ease",
+        once: true,
+        offset: 50,
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', aosInit);
+    } else {
+      aosInit();
+    }
+  </script>
+
+
+
+<script src="/js/pjax_script.js" data-pjax></script>
+
+
+
+
+
+
+
+  
+<script src="https://npm.webcache.cn/mouse-firework@0.1.1/dist/index.umd.js" integrity="sha384-8LyaidD9GPxQQgLJO&#x2F;WRw&#x2F;O2h3BoNq&#x2F;ApI&#x2F;ecpvM6RsrCz2qP2ppBXUKihP4V&#x2F;2d" crossorigin="anonymous"></script>
+
+  <script>
+    window.firework && window.firework(JSON.parse('{"excludeElements":["a","button"],"particles":[{"shape":"circle","move":["emit"],"easing":"easeOutExpo","colors":["var(--red-1)","var(--red-2)","var(--red-3)","var(--red-4)"],"number":20,"duration":[1200,1800],"shapeOptions":{"radius":[16,32],"alpha":[0.3,0.5]}},{"shape":"circle","move":["diffuse"],"easing":"easeOutExpo","colors":["var(--red-0)"],"number":1,"duration":[1200,1800],"shapeOptions":{"radius":20,"alpha":[0.2,0.5],"lineWidth":6}}]}'))
+  </script>
+
+
+
+
+
+
+
+
+
+
+<div id="lazy-script">
+  <div>
+    
+      
+      
+      <script data-pjax>
+        window.REIMU_POST = {
+          author: "Aunnno",
+          title: "yolo的环境配置，模型的训练和使用以及数据集的采集和标注",
+          url: "https://example.com/2025/08/05/yolo%E7%9A%84%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%EF%BC%8C%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AE%AD%E7%BB%83%E5%92%8C%E4%BD%BF%E7%94%A8%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E9%9B%86%E7%9A%84%E9%87%87%E9%9B%86%E5%92%8C%E6%A0%87%E6%B3%A8/",
+          excerpt: "",
+          description: "",
+          stripContent: "前言相关仓库：https://github.com/Aunnno/RMYC-recognition这是我为rmyc的视觉识别提供的解决方案，其中比较困难的就是yolo环境的安装以及使用，以及我在数据集的标注上跳了一些坑(苦笑)。今天就分享给大家鼠鼠的艰辛历程    yolo环境配置yolo技术的简要介绍 YOLO（You Only Look Once）是一种流行的物体检测和图像分割模型，由华盛顿大学的约瑟夫-雷德蒙（Joseph Redmon）和阿里-法哈迪（Ali Farhadi）开发。YOL",
+          date: "Tue Aug 05 2025 12:00:09 GMT+0800",
+          updated: "Tue Aug 05 2025 12:00:59 GMT+0800",
+          cover: "/covers/84074877_p0.jpg",
+        };
+      </script>
+       
+    
+    
+      
+        
+<script src="/js/insert_highlight.js" data-pjax></script>
+
+        
+      
+    
+    
+      <script type="module" data-pjax>
+        const PhotoSwipeLightbox = (await safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js", "sha384-DiL6M/gG+wmTxmCRZyD1zee6lIhawn5TGvED0FOh7fXcN9B0aZ9dexSF/N6lrZi/")).default;
+        
+        const pswp = () => {
+          if (_$$('.article-entry a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-entry',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          if(_$$('.article-gallery a.article-gallery-item').length > 0) {
+            new PhotoSwipeLightbox({
+              gallery: '.article-gallery',
+              children: 'a.article-gallery-item',
+              pswpModule: () => safeImport("https://npm.webcache.cn/photoswipe@5.4.4/dist/photoswipe.esm.min.js", "sha384-WkkO3GCmgkC3VQWpaV8DqhKJqpzpF9JoByxDmnV8+oTJ7m3DfYEWX1fu1scuS4+s")
+            }).init();
+          }
+          window.lightboxStatus = 'done';
+          window.removeEventListener('lightbox:ready', pswp);
+        }
+        if(window.lightboxStatus === 'ready') {
+          pswp()
+        } else {
+          window.addEventListener('lightbox:ready', pswp);
+        }
+      </script>
+      
+        
+
+
+
+
+
+
+
+
+<script data-pjax>
+  var loadScript = (src, integrity) => {
+    const script = document.createElement('script');
+    script.src = src;
+    if (integrity) script.integrity = integrity;
+    script.crossOrigin = 'anonymous';
+    return script;
+  };
+
+  var commentConfigKeys = ['valine', 'waline', 'twikoo', 'gitalk', 'giscus'];
+  var commentConfig = {
+    valine: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.valine-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/valine@1.5.1/dist/Valine.min.js',
+          'sha384-3ma91AExDeMAZ1rjTjaP8V2A2obQE+s5ltKRwYlwdpArz9xVbp0tF3b0VV2ACNPn'
+        );
+        script.onload = () => {
+          var GUEST_INFO = ['nick', 'mail', 'link'];
+          var guest_info = 'nick,mail,link'.split(',').filter((item) => {
+            return GUEST_INFO.indexOf(item) > -1
+          });
+          var recordIP = JSON.parse('true');
+          var highlight = JSON.parse('true');
+          var visitor = JSON.parse('false');
+          var serverURLs = undefined;
+
+          if (window.Valine) {
+            new Valine({
+              el: '.valine-comment',
+              appId: "",
+              appKey: "",
+              placeholder: "Just go go",
+              pageSize: '10',
+              avatar: 'mp',
+              lang: document.documentElement.lang || 'en',
+              recordIP: recordIP,
+              highlight: highlight,
+              visitor: visitor,
+              requiredFields: guest_info,
+              path: window.location.pathname,
+              serverURLs
+            });
+          }
+        };
+        document.head.appendChild(script);
+      }
+    },
+    waline: {
+      enable: true,
+      load: async () => {
+        const container = document.querySelector('.waline-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        let walineInit;
+        const walineCdn = 'https://npm.webcache.cn/@waline/client@2.15.8/dist/waline.mjs';
+        const walineIntegrity = 'sha384-9sbqJjrfGjbkI6/PI4nU/MvBfEmkkPC4YK9I4zBeMIf1CVCZdCMH/KinBEAZII/5';
+
+        const module = await safeImport(walineCdn, walineIntegrity);
+        walineInit = module.init;
+
+        window.walineInstance = walineInit({
+          el: '.waline-comment',
+          serverURL: 'https://aunnno-website-comments-l9en74b0h-jztx666s-projects.vercel.app/',
+          lang: document.documentElement.lang || 'en',
+          locale: {},
+          emoji: ["https://unpkg.com/@waline/emojis@1.2.0/weibo","https://unpkg.com/@waline/emojis@1.2.0/alus","https://unpkg.com/@waline/emojis@1.2.0/bilibili","https://unpkg.com/@waline/emojis@1.2.0/qq","https://unpkg.com/@waline/emojis@1.2.0/tieba","https://unpkg.com/@waline/emojis@1.2.0/tw-emoji"],
+          meta: ["nick","mail","link"],
+          requiredMeta: ["nick","mail"],
+          wordLimit: JSON.parse('0'),
+          comment: true,
+          pageSize: JSON.parse('10'),
+          dark: 'html[data-theme="dark"]',
+          pageview: JSON.parse('true'),
+        });
+      }
+    },
+    twikoo: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.twikoo-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/twikoo@1.6.44/dist/twikoo.all.min.js',
+          'sha384-kwWLC0HjeZZnVPqCJ1AncI8tsk+kQqF9TbAmCclcc9Z0hGkfgHRzeQZxmdmZhE0K'
+        );
+
+        script.onload = () => {
+          if (window.twikoo) {
+            twikoo.init({
+              envId: '',
+              el: '.twikoo-comment',
+              region: '',
+              lang: document.documentElement.lang || 'en',
+            });
+
+            twikoo.getCommentsCount({
+              envId: '',
+              region: '',
+              urls: [
+                '/friend/index.html'
+              ],
+              includeReply: false
+            }).then((res) => {
+              _$('.twikoo-comment-count').innerText = res[0].count;
+            }).catch((err) => {
+              console.error(err);
+            });
+          }
+        } 
+        document.head.appendChild(script);
+      }
+    },
+    gitalk: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.gitalk-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        const script = loadScript(
+          'https://npm.webcache.cn/gitalk@1.8.0/dist/gitalk.min.js',
+          'sha384-kspnZUWBoSWwoJHa0hBCXYbHGbhvU/lcEH5O8eVbSDhbPwsiVUTp/aGX/z/5EuMA'
+        );
+
+        script.onload = () => {
+          if (false) {
+            const md5Script = loadScript(
+              'https://npm.webcache.cn/blueimp-md5@2.19.0/js/md5.min.js',
+              'sha384-JmVtRz6RWiXnA14QbIOJzPuU3MidULOpBP66deeLLyyoF4Tr/gZlbkHkL6vTthxH'
+            );
+            md5Script.onload = initGitalk;
+            document.head.appendChild(md5Script);
+          } else {
+            initGitalk();
+          }
+        }
+        document.head.appendChild(script);
+
+        function initGitalk() {
+          var gitalkId = location.pathname;
+          var gitalk = new Gitalk({
+            clientID: '',
+            clientSecret: '',
+            repo: '',
+            owner: '',
+            admin: null,
+            id: gitalkId,
+            distractionFreeMode: false,
+            language: document.documentElement.lang || 'en',
+          })
+          gitalk.render('gitalk-comment');
+        }
+      }
+    },
+    giscus: {
+      enable: false,
+      load: () => {
+        const container = document.querySelector('.giscus-comment');
+        if (!container) return;
+        container.style.display = 'block';
+
+        // 删除可能已存在的 giscus 脚本和 iframe
+        const existingScript = container.querySelector('script[src*="giscus.app/client.js"]');
+        if (existingScript) existingScript.remove();
+        const existingFrame = document.querySelector('iframe.giscus-frame');
+        if (existingFrame) existingFrame.remove();
+
+        const giscusScript = document.createElement('script');
+        const domMode = document.documentElement.getAttribute("data-theme");
+
+        const docLang = document.documentElement.lang || 'en';
+        const langBase = docLang.split('-')[0];
+        const supportedLangs = ['ar', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'en', 
+        'eo', 'es', 'eu', 'fa', 'fr', 'gr', 'hbs', 'he', 'hu', 'id', 'it', 'ja', 
+        'kh', 'ko', 'nl', 'pl', 'pt', 'ro', 'ru', 'th', 'tr', 'uk', 'uz', 'vi', 'zh-CN', 'zh-HK', 'zh-TW'];
+        const giscusLang = supportedLangs.includes(docLang) ? docLang : supportedLangs.includes(langBase) ? langBase : 'en';
+
+        giscusScript.src = 'https://giscus.app/client.js';
+        giscusScript.setAttribute('data-repo', '');
+        giscusScript.setAttribute('data-repo-id', '');
+        giscusScript.setAttribute('data-category', ''); 
+        giscusScript.setAttribute('data-category-id', '');
+        giscusScript.setAttribute('data-mapping', '0');
+        giscusScript.setAttribute('data-strict', '0');
+        giscusScript.setAttribute('data-reactions-enabled', '1');
+        giscusScript.setAttribute('data-emit-metadata', '0');
+        giscusScript.setAttribute('data-input-position', 'bottom');
+        giscusScript.setAttribute('data-theme', domMode === 'dark' ? 'dark' : 'light');
+        giscusScript.setAttribute('data-lang', giscusLang);
+        giscusScript.setAttribute('crossorigin', 'anonymous');
+        giscusScript.async = true;
+        container.appendChild(giscusScript);
+        document.body.addEventListener('light-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'light' } } }, 'https://giscus.app');
+        });
+        document.body.addEventListener('dark-theme-set', () => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: 'dark' } } }, 'https://giscus.app');
+        });
+      }
+    }
+  }
+  commentConfig.enable = commentConfigKeys.some(key => commentConfig[key].enable);
+
+  var defaultComment = '';
+  if (commentConfig.enable) {
+    // 1. 首先检查localStorage中是否有保存的评论类型
+    var savedCommentType = localStorage.getItem('commentType');
+    
+    // 2. 如果localStorage中有值且对应的评论系统可用，就使用它
+    if (savedCommentType) {
+      if (commentConfig[savedCommentType]?.enable) {
+        defaultComment = savedCommentType;
+      }
+    }
+    
+    // 3. 如果localStorage无效，检查配置的默认评论系统
+    if (!defaultComment) {
+      var configDefault = 'waline';
+      if (commentConfig[configDefault]?.enable) {
+        defaultComment = configDefault;
+      }
+    }
+    
+    // 4. 如果前两项都无效，按指定顺序找到第一个可用的评论系统
+    if (!defaultComment) {
+      defaultComment = commentConfigKeys.find(sys => commentConfig[sys].enable) || '';
+    }
+  }
+  function loadComments() {
+    if (!commentConfig.enable) return;
+    // 评论组件加载状态跟踪
+    const loadedComments = {
+      valine: false,
+      waline: false,
+      twikoo: false,
+      gitalk: false,
+      giscus: false
+    };
+
+    // 隐藏所有评论容器
+    const hideAllComments = () => {
+      const commentContainers = document.querySelectorAll('.comment');
+      commentContainers.forEach(container => {
+        container.style.display = 'none';
+      });
+    };
+
+    // 按需加载评论系统
+    const loadCommentSystem = (type) => {
+      if (loadedComments[type]) {
+        // 如果已加载，只需显示对应容器
+        document.querySelector(`.${type}-comment`).style.display = 'block';
+        return;
+      }
+
+      // 根据类型加载对应的脚本
+      commentConfig[type]?.load();
+      loadedComments[type] = true;
+    };
+
+    // 评论组件选择器
+    const changeActiveCommentItems = (item) => {
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let i = 0; i < commentItems.length; i++) {
+        commentItems[i].classList.remove('active');
+      }
+      item.classList.add('active');
+
+      // 获取要加载的评论系统类型
+      const commentType = item.getAttribute('data-selector');
+
+      // 隐藏所有评论系统
+      hideAllComments();
+
+      // 加载选中的评论系统
+      loadCommentSystem(commentType);
+    };
+
+    const commentInit = () => {
+      // 评论组件选择器点击事件
+      const commentItems = document.querySelectorAll('.selector-item');
+      for (let item of commentItems) {
+        item.addEventListener('click', () => {
+          // 保存选择器状态
+          const commentType = item.getAttribute('data-selector');
+          window.localStorage.setItem('commentType', commentType);
+          // 切换选中状态
+          changeActiveCommentItems(item);
+        });
+      }
+
+      // 检查是否需要加载默认评论系统
+      if (defaultComment) {
+        const defaultSelectorItem = document.querySelector(`[data-selector="${defaultComment}"]`);
+        if (!defaultSelectorItem) return;
+        defaultSelectorItem.style.display = 'block';
+        defaultSelectorItem.classList.add('active');
+        loadCommentSystem(defaultComment);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', commentInit);
+    } else {
+      commentInit();
+    }
+  };
+  loadComments();
+</script>
+
+      
+    
+  </div>
+</div>
+
+
+  <script>
+    console.log(String.raw`%c 
+ ______     ______     __     __    __     __  __    
+/\  == \   /\  ___\   /\ \   /\ "-./  \   /\ \/\ \   
+\ \  __<   \ \  __\   \ \ \  \ \ \-./\ \  \ \ \_\ \  
+ \ \_\ \_\  \ \_____\  \ \_\  \ \_\ \ \_\  \ \_____\ 
+  \/_/ /_/   \/_____/   \/_/   \/_/  \/_/   \/_____/ 
+                                                  
+`,'color: #ff5252;')
+    console.log('%c Theme.Reimu v' + '1.9.0' + ' %c https://github.com/D-Sketon/hexo-theme-reimu ', 'color: white; background: #ff5252; padding:5px 0;', 'padding:4px;border:1px solid #ff5252;')
+  </script>
+  
+
+
+
+  
+<script src="https://npm.webcache.cn/busuanzi@2.3.0/bsz.pure.mini.js" integrity="sha384-0M75wtSkhjIInv4coYlaJU83+OypaRCIq2SukQVQX04eGTCBXJDuWAbJet56id+S" crossorigin="anonymous" async></script>
+
+
+
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
+
+
+
+
+
+
+
+
+
+    
+  </body>
+  </html>
+
