@@ -1,12 +1,12 @@
 :root {
-  --red-0: #ff0000;
-  --red-1: #ff5252;
-  --red-2: #ff7c7c;
-  --red-3: #ffafaf;
-  --red-4: #ffd0d0;
-  --red-5: #ffecec;
-  --red-5-5: #fff3f3;
-  --red-6: #fff7f7;
+  --red-0: #39c5bb;
+  --red-1: #4dcbc2;
+  --red-2: #61d1c9;
+  --red-3: #74d6cf;
+  --red-4: #88dcd6;
+  --red-5: #9ce2dd;
+  --red-5-5: #a6e5e0;
+  --red-6: #b0e8e4;
   --grey-9: #888;
   --grey-7: var(--color-default);
   --color-archive-year: #000;
@@ -24,8 +24,8 @@
   --color-meta-shadow: var(--red-6);
   --color-hover-shadow: rgba(120,120,120,0.15);
   --color-h2-after: var(--red-1);
-  --color-red-6-shadow: rgba(255, 78, 78, 0.6);
-  --color-red-3-shadow: rgba(255, 78, 78, 0.3);
+  --color-red-6-shadow: rgba(156,226,221,0.6);
+  --color-red-3-shadow: rgba(156,226,221,0.3);
   --highlight-nav: #e6e6e6;
   --highlight-scrollbar: #d6d6d6;
   --highlight-background: #f7f7f7;
@@ -54,10 +54,10 @@
 }
 [data-theme="dark"]:root {
   --red-0: var(--red-1);
-  --red-4: rgba(255, 208, 208, 0.5);
-  --red-5: rgba(255,228,228,0.15);
-  --red-5-5: rgba(255,236,236,0.05);
-  --red-6: rgba(255, 243, 243, 0.2);
+  --red-4: rgba(136,220,214,0.50);
+  --red-5: rgba(156,226,221,0.15);
+  --red-5-5: rgba(166,229,224,0.05);
+  --red-6: rgba(176,232,228,0.20);
   --color-archive-year: #999;
   --color-default: #999;
   --color-border: var(--red-5);
@@ -396,6 +396,12 @@ body [data-aos='zoom-in'] {
 .ais-pagination--item__next a:before {
   font-family: "iconfont";
   content: "\e630";
+}
+.icon-github:before {
+  content: "\e619";
+}
+.icon-bilibili:before {
+  content: "\e603";
 }
 .sidebar-btn-wrapper .sidebar-toc-btn:before {
   font-family: "iconfont";
@@ -2729,6 +2735,15 @@ pre .javascript .function {
 }
 .sidebar-social-icon:hover {
   transform: scale(1.2);
+}
+.icon-github {
+  color: #191717;
+}
+[data-theme="dark"] .icon-github {
+  color: #bc88ff;
+}
+.icon-bilibili {
+  color: #00a1d6;
 }
 .sidebar-menu-icon,
 .sidebar-menu-link {
