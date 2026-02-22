@@ -17,6 +17,7 @@
   <script>window.REIMU_CONFIG = {};window.REIMU_CONFIG.icon_font = '4552607_0khxww3tj3q9';window.REIMU_CONFIG.clipboard_tips = {"success":{"en":"Copy successfully (*^▽^*)","zh-CN":"复制成功 (*^▽^*)","zh-TW":"複製成功 (*^▽^*)","ja":"コピー成功 (*^▽^*)","pt-BR":"Copiado com sucesso (*^▽^*)"},"fail":{"en":"Copy failed (ﾟ⊿ﾟ)ﾂ","zh-CN":"复制失败 (ﾟ⊿ﾟ)ﾂ","zh-TW":"複製失敗 (ﾟ⊿ﾟ)ﾂ","ja":"コピー失敗 (ﾟ⊿ﾟ)ﾂ","pt-BR":"Falha ao copiar (ﾟ⊿ﾟ)ﾂ"},"copyright":{"enable":false,"count":50,"license_type":"by-nc-sa"}};window.REIMU_CONFIG.clipboard_tips.copyright.content = '本博客所有文章除特别声明外，均采用 BY-NC-SA 许可协议。转载请注明出处！';window.REIMU_CONFIG.code_block = {"expand":true};window.REIMU_CONFIG.base = 'https://example.com';</script>
   
   <title>
+    prompt提示词工程入门 |
     
     Aunnno的小窝
   </title>
@@ -36,19 +37,19 @@
 
   
   
-    <meta name="description" content="本站信息站名：Aunnno的小窝站长：Aunnno地址：aunnno.github.io">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Aunnno的小窝">
-<meta property="og:url" content="https://example.com/friend/index.html">
+    <meta name="description" content="prompt提示词工程入门前言实话实说这篇写得很烂。我建议你看我的博客不如去看b站讲解(笑) 当你在使用ai时，是否经常遇到ai不知所云，答非所问的情况？这可能并不是ai的问题，只是你并没有掌握到合适的提示词技巧。本教程适用于ai提示词初学者、需要更准确的ai输出的普通人。看完本教程，你应该能够学习到实用的ai提示词技巧来使用ai。 基本介绍关于prompt[^提示工程（Prompt Engine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prompt提示词工程入门">
+<meta property="og:url" content="https://example.com/2026/02/22/prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Aunnno的小窝">
-<meta property="og:description" content="本站信息站名：Aunnno的小窝站长：Aunnno地址：aunnno.github.io">
+<meta property="og:description" content="prompt提示词工程入门前言实话实说这篇写得很烂。我建议你看我的博客不如去看b站讲解(笑) 当你在使用ai时，是否经常遇到ai不知所云，答非所问的情况？这可能并不是ai的问题，只是你并没有掌握到合适的提示词技巧。本教程适用于ai提示词初学者、需要更准确的ai输出的普通人。看完本教程，你应该能够学习到实用的ai提示词技巧来使用ai。 基本介绍关于prompt[^提示工程（Prompt Engine">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://example.com/images/banner.webp">
-<meta property="article:published_time" content="2025-08-03T14:31:36.310Z">
-<meta property="article:modified_time" content="2025-08-03T14:31:36.310Z">
+<meta property="article:published_time" content="2026-02-22T12:33:54.000Z">
+<meta property="article:modified_time" content="2026-02-22T04:49:21.275Z">
 <meta property="article:author" content="Aunnno">
+<meta property="article:tag" content="ai">
+<meta property="article:tag" content="prompt">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://example.com/images/banner.webp">
   
   
     <link rel="alternate" href="/atom.xml" title="Aunnno的小窝" type="application/atom+xml">
@@ -201,14 +202,8 @@
 </div>
 <header id="header">
   
-    
-      <picture>
-        
-      </picture>
-      
-        <img  fetchpriority="high" src="/images/banner.webp" alt="">
-      
-    
+    <picture></picture>
+    <img  fetchpriority="high" src="/covers/84074877_p0.jpg" alt="prompt提示词工程入门">
   
   <div id="header-outer">
     <div id="header-title">
@@ -216,7 +211,7 @@
         
         
           <a href="/" id="logo">
-            <h1 data-aos="slide-up">Aunnno的小窝</h1>
+            <h1 data-aos="slide-up">prompt提示词工程入门</h1>
           </a>
         
       
@@ -235,10 +230,20 @@
   
   
   
-  <div class="sidebar-wrapper ">
+  <div class="sidebar-wrapper wrap-sticky">
     <div class="sidebar-wrap" data-aos="fade-up">
       
-        <div class="sidebar-author">
+        
+          <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">prompt提示词工程入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eprompt"><span class="toc-number">1.2.1.</span> <span class="toc-text">关于prompt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">模型设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E8%A6%81%E7%B4%A0"><span class="toc-number">1.2.3.</span> <span class="toc-text">提示词要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%A0%B8%E5%BF%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">提示词核心</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">提示词结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-%E8%A7%92%E8%89%B2"><span class="toc-number">1.3.1.</span> <span class="toc-text">任务&amp;角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.3.2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%A2%B3%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">信息梳理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.5.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E5%AF%B9%E8%AF%9D"><span class="toc-number">1.3.6.</span> <span class="toc-text">示例对话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.3.7.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+          <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Aunnno" class="lazyload">
   <div class="sidebar-author-name">Aunnno</div>
   <div class="sidebar-description"></div>
@@ -321,8 +326,16 @@
     
   
 </div>
-
+</div>
+        
       
+      
+        
+          <div class="sidebar-btn-wrapper" style="position:static">
+            <div class="sidebar-toc-btn current"></div>
+            <div class="sidebar-common-btn"></div>
+          </div>
+        
       
     </div>
   </div>
@@ -333,17 +346,21 @@
   
 </aside>
 
-          <section id="main"><article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+          <section id="main"><article id="post-prompt提示词工程入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-inner" data-aos="fade-up">
     <div class="article-meta">
       <div class="article-date">
   <span class="article-date-link" data-aos="zoom-in">
-    <time datetime="2025-08-03T14:31:36.310Z" itemprop="datePublished">2025-08-03</time>
-    <time style="display: none;" id="post-update-time">2025-08-03</time>
+    <time datetime="2026-02-22T12:33:54.000Z" itemprop="datePublished">2026-02-22</time>
+    <time style="display: none;" id="post-update-time">2026-02-22</time>
   </span>
 </div>
 
       
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%8A%80%E6%9C%AF/" data-aos="zoom-in">技术</a>
+  </div>
+
 
     </div>
     <div class="hr-line"></div>
@@ -352,7 +369,72 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
       
-        <h1 id="本站信息"><a href="#本站信息" class="headerlink" title="本站信息"></a>本站信息</h1><p>站名：Aunnno的小窝<br>站长：Aunnno<br>地址：aunnno.github.io</p>
+        <h1 id="prompt提示词工程入门"><a href="#prompt提示词工程入门" class="headerlink" title="prompt提示词工程入门"></a>prompt提示词工程入门</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>实话实说这篇写得很烂。我建议你看我的博客不如去看b站讲解(笑)</p>
+<p>当你在使用ai时，是否经常遇到ai不知所云，答非所问的情况？这可能并不是ai的问题，只是你并没有掌握到合适的提示词技巧。本教程适用于ai提示词初学者、需要更准确的ai输出的普通人。看完本教程，你应该能够学习到实用的ai提示词技巧来使用ai。</p>
+<h2 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h2><h3 id="关于prompt"><a href="#关于prompt" class="headerlink" title="关于prompt"></a>关于prompt</h3><p>[^提示工程（Prompt Engineering）是一门较新的学科，关注提示词开发和优化，帮助用户将大语言模型（Large Language Model, LLM）用于各场景和研究领域。 掌握了提示工程相关技能将有助于用户更好地了解大型语言模型的能力和局限性。]: 摘自Prompt Engineering Guide</p>
+<p>通俗的讲，prompt相当于你给大模型的一个预设。有了这个预设后，大模型才能对该任务有更清晰的完成路径，相当于给了大模型一个地图。这样大模型才能更好地完成任务。</p>
+<p>一般来说，我们的提示词通常使用markdown语言完成。使用markdown比自然语言具有更清晰的逻辑和结构，所以我推荐所有人学习markdown语言的基本使用。</p>
+<p>在撰写提示词时，可以充分使用各种markdown标记进行重点强调，内容划分。</p>
+<h3 id="模型设置"><a href="#模型设置" class="headerlink" title="模型设置"></a>模型设置</h3><p>很多模型的设置都有很多，这里只讲解最常见的两个：</p>
+<ul>
+<li><strong>Temperature</strong>：简单来说，<code>temperature</code> 的参数值越小，模型就会返回越确定的一个结果。如果调高该参数值，大语言模型可能会返回更随机的结果，也就是说这可能会带来更多样化或更具创造性的产出。（调小<code>temperature</code>）实质上，你是在增加其他可能的 token 的权重。在实际应用方面，对于质量保障（QA）等任务，我们可以设置更低的 <code>temperature</code> 值，以促使模型基于事实返回更真实和简洁的结果。 对于诗歌生成或其他创造性任务，适度地调高 <code>temperature</code> 参数值可能会更好。</li>
+<li><strong>Max Length</strong>：您可以通过调整 <code>max length</code> 来控制大模型生成的 token 数。指定 Max Length 有助于防止大模型生成冗长或不相关的响应并控制成本。</li>
+</ul>
+<h3 id="提示词要素"><a href="#提示词要素" class="headerlink" title="提示词要素"></a>提示词要素</h3><p>如果您接触过大量提示工程相关的示例和应用，您会注意到提示词是由一些要素组成的。</p>
+<p>提示词可以包含以下任意要素：</p>
+<ul>
+<li><strong>指令</strong>：想要模型执行的特定任务或指令。</li>
+<li><strong>上下文</strong>：包含外部信息或额外的上下文信息，引导语言模型更好地响应。</li>
+<li><strong>输入数据</strong>：用户输入的内容或问题。</li>
+<li><strong>输出指示</strong>：指定输出的类型或格式。</li>
+</ul>
+<h3 id="提示词核心"><a href="#提示词核心" class="headerlink" title="提示词核心"></a>提示词核心</h3><p>任务，任务，还是tm的任务。好的提示词必须要有一个清晰的任务，这样大模型才能知道你需要它做什么。</p>
+<h2 id="提示词结构"><a href="#提示词结构" class="headerlink" title="提示词结构"></a>提示词结构</h2><p>我将以一个简单的任务实例来讲解提示词结构。</p>
+<p>任务：写一个TTS(text to speech)的python实现</p>
+<p>我知道现在的ai大都对编程任务进行过优化，不过我发现编程任务是最方便讲解的，所以我们假装我们用的ai是一个懵懂无知但又有强大能力的ai(笑)</p>
+<h3 id="任务-角色"><a href="#任务-角色" class="headerlink" title="任务&amp;角色"></a>任务&amp;角色</h3><p><strong>任务</strong>：讲述ai需要做什么。</p>
+<p>任务是prompt的关键，但是其内容并不需要特别复杂。一个简单且清晰的任务描述能够让ai更好地理解它需要做什么。如果你需要增加信息，可以在后文的<strong>背景</strong>中进行补充。</p>
+<p><strong>角色</strong>：你需要ai扮演的角色。</p>
+<p>在这里，我们可以让ai扮演一个经验丰富的软件工程师或技术精湛的个人开发者。你提供的角色能够让ai更好地理解它在任务中所处的位置。比如，在面对育儿问题时，一个慈爱的母亲和一个经验丰富的保姆很可能给出的回答存在相当的差异。</p>
+<p>以及，在写完角色和任务后，可以浅浅的带一下我们的部分要求和设定，这一部分会在后文的的<strong>注意事项</strong>中再次提及。</p>
+<p>综合后，我们提示词如下：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 任务</span></span><br><span class="line">你是一名经验丰富的<span class="strong">**软件开发工程师**</span>，你现在需要为文字转语音(tts)提供一个python解决方案。请保证代码简单高效，简便易用。</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>这里主要阐述任务的背景和一些需求背景（如用途、场景）等，让ai更好地理解这份任务。如这个任务你可以从部署设备、语音质量要求、语音合成时间等方面为ai提供背景。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 背景</span></span><br><span class="line">1.该解决方案将被部署到linux设备上，该设备有Nvidia 3060显卡，8GB显存，16GB内存。</span><br><span class="line">2.我们需要较低的合成时间，要求合成10个中文汉字的语音输出所消耗的时间&lt;0.2s。</span><br><span class="line">3.我们需要较高的语音质量，要求在满足第二条的情况下尽可能地提高生成质量</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>在撰写prompt时，请不要使用含糊的语言。比如交代温度情况时，不要使用<strong>较高的温度</strong>等描述，而使用<strong>部署设备在超过80%时间里所处环境温度大于25度，小于35度</strong>。必要时，你可以使用<strong>伪代码</strong>等形式描述你的需求。</p>
+<h3 id="信息梳理"><a href="#信息梳理" class="headerlink" title="信息梳理"></a>信息梳理</h3><p>我们当前的情况并不特别需要信息梳理。但是，在面对一些可能不确定的输入时，定义好信息的梳理是十分必要的。我举一个病患来看病的例子。</p>
+<p>面对病患描述自己病情时，让ai提取关键信息：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 信息梳理</span></span><br><span class="line">你将面对病患的不确定输入，请务必注意并记录以下信息：</span><br><span class="line">1.病情发生的时间与频率</span><br><span class="line">2.身体不舒服的部位</span><br><span class="line">3.是否有自行吃过药</span><br><span class="line">如果患者的描述中你无法提取到上述的某一点，请进行询问</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h3><p>在一些场景下，可能会要求ai固定输入输出格式，像什么仓库管理ai、病历管理ai等。在我们的例子中，我们可以使用<strong>伪代码</strong>的形式定义输入输出(本例我将输入输出合并)。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 输入&amp;输出</span></span><br><span class="line">伪代码定义：</span><br><span class="line">def func(text:str,output<span class="emphasis">_path:str):</span></span><br><span class="line"><span class="emphasis">	return filename -&gt; str | None</span></span><br><span class="line"><span class="emphasis">...</span></span><br></pre></td></tr></table></figure>
+
+<p>常见的输入有<strong>json</strong>,<strong>xml标签</strong>，我们这里以病历管理ai为例，以xml标签作为输入：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 输入</span></span><br><span class="line">你将面对以下输入，请存储：</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">name</span>&gt;</span></span>&#123;name&#125;<span class="language-xml"><span class="tag">&lt;/<span class="name">name</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">age</span>&gt;</span></span>&#123;age&#125;<span class="language-xml"><span class="tag">&lt;/<span class="name">age</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">date</span>&gt;</span></span>&#123;date&#125;<span class="language-xml"><span class="tag">&lt;/<span class="name">date</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">record</span>&gt;</span></span>&#123;record&#125;&#123;/record&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>对于一些角色扮演类对话，可以这么定义：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 输入</span></span><br><span class="line">我将会依照以下格式与你对话：</span><br><span class="line">(&#123;动作&#125;)&#123;对话&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h3 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h3><p>本例输出已在<strong>输入</strong>篇中讲解，这里不过多赘述。我们常见的输出格式是json格式，依旧以病历管理ai举例:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 输出</span></span><br><span class="line">你需要按照以下格式进行输出：</span><br><span class="line"><span class="code">```json</span></span><br><span class="line"><span class="code">&#123;</span></span><br><span class="line"><span class="code">	name:&quot;name&quot;,</span></span><br><span class="line"><span class="code">	age:&quot;age&quot;,</span></span><br><span class="line"><span class="code">	records:[</span></span><br><span class="line"><span class="code">	&quot;date1&quot;:&quot;record1&quot;,</span></span><br><span class="line"><span class="code">	&quot;date2&quot;:&quot;record2&quot;</span></span><br><span class="line"><span class="code">	]</span></span><br><span class="line"><span class="code">&#125;</span></span><br><span class="line"><span class="code">```</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>以的角色扮演举例：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="section"># 输出</span></span><br><span class="line">你需要按照以下格式输出：</span><br><span class="line">(&#123;动作&#125;)&#123;对话&#125;</span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实际的输入输出可能更为复杂，读者可自行参考一些大佬写的prompt。</p>
+<h3 id="示例对话"><a href="#示例对话" class="headerlink" title="示例对话"></a>示例对话</h3><p>实例能够帮助ai更好地理解它处理任务的方式和输入输出的格式。通常，你可以在输入和输出的后面给出实例。一般来说，实例使用以下格式(笔者这里懒得写内容了呃呃呃)：</p>
+<p><strong>Q&amp;A</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 示例对话</span></span><br><span class="line">Q:</span><br><span class="line">A:</span><br><span class="line">Q:</span><br><span class="line">A:</span><br></pre></td></tr></table></figure>
+
+<p><strong>usr&amp;assistant</strong></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 示例对话</span></span><br><span class="line">usr:</span><br><span class="line">assistant:</span><br><span class="line">usr:</span><br><span class="line">assistant:</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><p>这里提供ai在输出内容时需要注意的地方，以该tts任务举例：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section"># 注意事项</span></span><br><span class="line">1.请保证代码的简洁易读</span><br><span class="line">2.在代码中添加适量的注释</span><br><span class="line">3.请确保你遵守我要求你做到的每个内容</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>[1]: <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1j4h3zpEPa">https://www.bilibili.com/video/BV1j4h3zpEPa</a>	“Anithropic开发者演讲”<br>[2]: <a target="_blank" rel="noopener" href="https://www.promptingguide.ai/">https://www.promptingguide.ai/</a>	“Prompt Engineering Guide”</p>
 
       
     </div>
@@ -362,8 +444,8 @@
       
       
       
-        <a data-aos="zoom-in" href="/friend/index.html#comments" class="article-comment-link">
-          <span class="post-comments-count waline-comment-count" data-path="/friend/index.html" itemprop="commentCount"></span>
+        <a data-aos="zoom-in" href="/2026/02/22/prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/#comments" class="article-comment-link">
+          <span class="post-comments-count waline-comment-count" data-path="/2026/02/22/prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/" itemprop="commentCount"></span>
           留言
         </a>
       
@@ -371,15 +453,36 @@
       
       
         <span data-aos="zoom-in" class="article-visitor-link">
-          <span class="waline-pageview-count" data-path="/friend/">0</span>
+          <span class="waline-pageview-count" data-path="/2026/02/22/prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/">0</span>
           <em class="post-meta-item-text">阅读量</em>
         </span>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/ai/" rel="tag">ai</a></li><li class="article-tag-list-item" data-aos="zoom-in"><a class="article-tag-list-link" href="/tags/prompt/" rel="tag">prompt</a></li></ul>
+
 
     </footer>
   </div>
   
+  <nav id="article-nav" data-aos="fade-up">
+    
+    
+    
+    <div class="article-nav-link-wrap article-nav-link-right">
+      
+        <img data-src="/covers/84074877_p0.jpg" data-sizes="auto" alt="SpeechToText&amp;TextToSpeech相关指南" class="lazyload">
+      
+      <a href="/2026/02/21/SpeechToText&TextToSpeech%E7%9B%B8%E5%85%B3%E6%8C%87%E5%8D%97/"></a>
+      <div class="article-nav-caption">后一篇</div>
+      <h3 class="article-nav-title">
+        
+          SpeechToText&amp;TextToSpeech相关指南
+        
+      </h3>
+    </div>
+    
+  </nav>
+
 
 </article>
 
@@ -476,7 +579,17 @@
       <nav id="mobile-nav">
   <div class="sidebar-wrap">
     
-      <div class="sidebar-author">
+      
+        <div class="sidebar-toc-sidebar"><div class="sidebar-toc">
+  <h3 class="toc-title">文章目录</h3>
+  <div class="sidebar-toc-wrapper toc-div-class" >
+      
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">prompt提示词工程入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.2.</span> <span class="toc-text">基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8Eprompt"><span class="toc-number">1.2.1.</span> <span class="toc-text">关于prompt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.2.2.</span> <span class="toc-text">模型设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E8%A6%81%E7%B4%A0"><span class="toc-number">1.2.3.</span> <span class="toc-text">提示词要素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E6%A0%B8%E5%BF%83"><span class="toc-number">1.2.4.</span> <span class="toc-text">提示词核心</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E7%A4%BA%E8%AF%8D%E7%BB%93%E6%9E%84"><span class="toc-number">1.3.</span> <span class="toc-text">提示词结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-%E8%A7%92%E8%89%B2"><span class="toc-number">1.3.1.</span> <span class="toc-text">任务&amp;角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-number">1.3.2.</span> <span class="toc-text">背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%A2%B3%E7%90%86"><span class="toc-number">1.3.3.</span> <span class="toc-text">信息梳理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%85%A5"><span class="toc-number">1.3.4.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%93%E5%87%BA"><span class="toc-number">1.3.5.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E5%AF%B9%E8%AF%9D"><span class="toc-number">1.3.6.</span> <span class="toc-text">示例对话</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.3.7.</span> <span class="toc-text">注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">1.4.</span> <span class="toc-text">参考资料</span></a></li></ol></li></ol>
+      
+  </div>
+</div>
+</div>
+        <div class="sidebar-common-sidebar hidden"><div class="sidebar-author">
   <img data-src="/avatar/avatar.webp" data-sizes="auto" alt="Aunnno" class="lazyload">
   <div class="sidebar-author-name">Aunnno</div>
   <div class="sidebar-description"></div>
@@ -559,9 +672,17 @@
     
   
 </div>
-
+</div>
+      
     
   </div>
+  
+    
+      <div class="sidebar-btn-wrapper">
+        <div class="sidebar-toc-btn current"></div>
+        <div class="sidebar-common-btn"></div>
+      </div>
+    
   
 </nav>
 
@@ -636,14 +757,14 @@
       <script data-pjax>
         window.REIMU_POST = {
           author: "Aunnno",
-          title: "",
-          url: "https://example.com/friend/index.html",
+          title: "prompt提示词工程入门",
+          url: "https://example.com/2026/02/22/prompt%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B%E5%85%A5%E9%97%A8/",
           excerpt: "",
           description: "",
-          stripContent: "本站信息站名：Aunnno的小窝站长：Aunnno地址：aunnno.github.io ",
-          date: "Sun Aug 03 2025 22:31:36 GMT+0800",
-          updated: "Sun Aug 03 2025 22:31:36 GMT+0800",
-          cover: "/images/banner.webp",
+          stripContent: "prompt提示词工程入门前言实话实说这篇写得很烂。我建议你看我的博客不如去看b站讲解(笑) 当你在使用ai时，是否经常遇到ai不知所云，答非所问的情况？这可能并不是ai的问题，只是你并没有掌握到合适的提示词技巧。本教程适用于ai提示词初学者、需要更准确的ai输出的普通人。看完本教程，你应该能够学习到实用的ai提示词技巧来使用ai。 基本介绍关于prompt[^提示工程（Prompt Engineering）是一门较新的学科，关注提示词开发和优化，帮助用户将大语言模型（Large Languag",
+          date: "Sun Feb 22 2026 20:33:54 GMT+0800",
+          updated: "Sun Feb 22 2026 12:49:21 GMT+0800",
+          cover: "/covers/84074877_p0.jpg",
         };
       </script>
        
